@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard – KFUEIT Job Fair 2026{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-badge">Event Overview</span>
+            <h2 class="section-title mt-2">Job Fair <span class="text-kf">Dashboard</span></h2>
+            <p class="text-muted">Everything you need to know about KFUEIT Job Fair 2026</p>
+        </div>
+
+        <!-- Countdown -->
+        <div class="countdown-card mb-5">
+            <h5 class="text-white mb-3 text-center">
+                <i class="bi bi-alarm me-2"></i>Event Countdown
+            </h5>
+            <div class="row justify-content-center g-3" id="countdown">
+                <div class="col-auto">
+                    <div class="count-box">
+                        <span class="count-num" id="days">--</span>
+                        <span class="count-label">Days</span>
+                    </div>
+                </div>
+                <div class="col-auto align-self-center text-white fs-3">:</div>
+                <div class="col-auto">
+                    <div class="count-box">
+                        <span class="count-num" id="hours">--</span>
+                        <span class="count-label">Hours</span>
+                    </div>
+                </div>
+                <div class="col-auto align-self-center text-white fs-3">:</div>
+                <div class="col-auto">
+                    <div class="count-box">
+                        <span class="count-num" id="minutes">--</span>
+                        <span class="count-label">Minutes</span>
+                    </div>
+                </div>
+                <div class="col-auto align-self-center text-white fs-3">:</div>
+                <div class="col-auto">
+                    <div class="count-box">
+                        <span class="count-num" id="seconds">--</span>
+                        <span class="count-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-white-50 mt-3 mb-0">
+                <i class="bi bi-calendar3 me-1"></i>March 15, 2026 at 9:00 AM
+            </p>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center">
+                    <i class="bi bi-building text-kf fs-2 mb-2"></i>
+                    <h3 class="fw-bold text-kf">50+</h3>
+                    <p class="text-muted mb-0">Companies</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center">
+                    <i class="bi bi-people-fill text-success fs-2 mb-2"></i>
+                    <h3 class="fw-bold text-success">1000+</h3>
+                    <p class="text-muted mb-0">Expected Attendees</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center">
+                    <i class="bi bi-briefcase-fill text-warning fs-2 mb-2"></i>
+                    <h3 class="fw-bold text-warning">200+</h3>
+                    <p class="text-muted mb-0">Open Positions</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card text-center">
+                    <i class="bi bi-award-fill text-danger fs-2 mb-2"></i>
+                    <h3 class="fw-bold text-danger">8</h3>
+                    <p class="text-muted mb-0">Workshops</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedule -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="dashboard-card h-100">
+                    <h5 class="mb-4">
+                        <i class="bi bi-calendar-event text-kf me-2"></i>Event Schedule
+                    </h5>
+                    <div class="schedule-list">
+                        {% set schedule = [
+                            ('9:00 AM','Registration & Check-in','bi-door-open','kf'),
+                            ('10:00 AM','Opening Ceremony','bi-mic-fill','success'),
+                            ('10:30 AM','Company Booths Open','bi-shop-window','warning'),
+                            ('12:00 PM','CV Workshop Session 1','bi-file-earmark-person','info'),
+                            ('1:00 PM','Lunch Break','bi-cup-hot','secondary'),
+                            ('2:00 PM','Panel Discussion','bi-people','kf'),
+                            ('3:30 PM','CV Workshop Session 2','bi-file-earmark-person','info'),
+                            ('4:30 PM','Award & Closing Ceremony','bi-award','warning'),
+                        ] %}
+                        {% for time, event, icon, color in schedule %}
+                        <div class="schedule-item">
+                            <span class="schedule-time">{{ time }}</span>
+                            <span class="schedule-dot bg-{{ color }}"></span>
+                            <span class="schedule-event">
+                                <i class="bi {{ icon }} me-2 text-{{ color }}"></i>{{ event }}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="dashboard-card h-100">
+                    <h5 class="mb-4">
+                        <i class="bi bi-map text-kf me-2"></i>Venue Map
+                    </h5>
+                    <div class="venue-map-placeholder rounded-3 d-flex align-items-center justify-content-center flex-column text-muted mb-3" style="height:200px; background: var(--kf-bg-light); border: 2px dashed var(--kf-border);">
+                        <i class="bi bi-map fs-2 mb-2"></i>
+                        <p class="mb-0">KFUEIT Main Campus</p>
+                        <p class="small">Rahim Yar Khan, Punjab, Pakistan</p>
+                    </div>
+                    <ul class="list-unstyled venue-details">
+                        <li><i class="bi bi-geo-alt-fill text-kf me-2"></i><strong>Venue:</strong> KFUEIT Sports Complex &amp; Main Hall</li>
+                        <li><i class="bi bi-p-circle-fill text-kf me-2"></i><strong>Parking:</strong> Available at Campus Gate 1 &amp; 2</li>
+                        <li><i class="bi bi-bus-front-fill text-kf me-2"></i><strong>Transport:</strong> University shuttle from city bus stand</li>
+                        <li><i class="bi bi-telephone-fill text-kf me-2"></i><strong>Helpline:</strong> 0300-1234567 (Event Day)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Prepare -->
+        <div class="dashboard-card mb-5">
+            <h5 class="mb-4"><i class="bi bi-check2-all text-kf me-2"></i>How to Prepare</h5>
+            <div class="row g-3">
+                {% set tips = [
+                    ('1','Update Your CV','Tailor your CV for the roles you are applying for. Keep it 1-2 pages.','bi-file-earmark-check'),
+                    ('2','Research Companies','Study the participating companies and prepare relevant questions.','bi-search'),
+                    ('3','Dress Professionally','Business formal or smart casual attire is recommended.','bi-suit2'),
+                    ('4','Bring Copies','Bring at least 10 printed copies of your CV.','bi-printer'),
+                    ('5','Arrive Early','Arrive by 9:00 AM for smooth check-in and early access to booths.','bi-alarm'),
+                    ('6','Bring Your ID','Carry your CNIC and university ID card.','bi-credit-card-2-front'),
+                ] %}
+                {% for num, title, desc, icon in tips %}
+                <div class="col-md-4 col-6">
+                    <div class="tip-card h-100">
+                        <div class="tip-num">{{ num }}</div>
+                        <i class="bi {{ icon }} text-kf fs-4 mb-2"></i>
+                        <h6 class="fw-semibold mb-1">{{ title }}</h6>
+                        <p class="small text-muted mb-0">{{ desc }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center">
+            <a href="{{ url_for('forms.register') }}" class="btn btn-kf btn-lg px-5">
+                <i class="bi bi-person-plus me-2"></i>Register Now – It's Free
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Countdown Timer
+const eventDate = new Date('2026-03-15T09:00:00');
+
+function updateCountdown() {
+    const now = new Date();
+    const diff = eventDate - now;
+    
+    if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = '<p class="text-white text-center fw-bold fs-4">🎉 Event is Live!</p>';
+        return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+{% endblock %}

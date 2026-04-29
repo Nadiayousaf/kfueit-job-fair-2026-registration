@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel – KFUEIT Job Fair 2026{% endblock %}
+
+{% block content %}
+<section class="py-4">
+    <div class="container-fluid px-4">
+        
+        <!-- Header -->
+        <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+            <div>
+                <h4 class="fw-bold mb-1">
+                    <i class="bi bi-shield-lock-fill text-kf me-2"></i>Admin Panel
+                </h4>
+                <p class="text-muted mb-0 small">
+                    Welcome, <strong>{{ session.get('username','Admin') }}</strong> · KFUEIT Job Fair 2026
+                    <span class="badge {% if using_sheets %}bg-success{% else %}bg-warning text-dark{% endif %} ms-2" style="font-size:0.7rem">
+                        <i class="bi {% if using_sheets %}bi-cloud-check{% else %}bi-database{% endif %} me-1"></i>{{ storage_mode }}
+                    </span>
+                </p>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary btn-sm" onclick="refreshData()">
+                    <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+                </button>
+                <a href="{{ url_for('admin.export_csv') }}" class="btn btn-outline-kf btn-sm"><i class="bi bi-file-earmark-spreadsheet me-1"></i>Export CSV</a>
+                <a href="{{ url_for('admin.api_registrations') }}" target="_blank" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-braces me-1"></i>Export JSON
+                </a>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger btn-sm">
+                    <i class="bi bi-box-arrow-right me-1"></i>Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3 col-6">
+                <div class="admin-stat-card border-kf">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted small mb-1">Total Registrations</p>
+                            <h3 class="fw-bold text-kf mb-0">{{ count }}</h3>
+                        </div>
+                        <div class="admin-stat-icon bg-kf-light">
+                            <i class="bi bi-people-fill text-kf"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="admin-stat-card border-success">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted small mb-1">Departments</p>
+                            <h3 class="fw-bold text-success mb-0">{{ departments|length }}</h3>
+                        </div>
+                        <div class="admin-stat-icon bg-success-subtle">
+                            <i class="bi bi-diagram-3-fill text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="admin-stat-card border-warning">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted small mb-1">Full-time Seekers</p>
+                            <h3 class="fw-bold text-warning mb-0">{{ job_types.get('Full-time', 0) }}</h3>
+                        </div>
+                        <div class="admin-stat-icon bg-warning-subtle">
+                            <i class="bi bi-briefcase-fill text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="admin-stat-card border-info">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <p class="text-muted small mb-1">Internship Seekers</p>
+                            <h3 class="fw-bold text-info mb-0">{{ job_types.get('Internship', 0) }}</h3>
+                        </div>
+                        <div class="admin-stat-icon bg-info-subtle">
+                            <i class="bi bi-journal-bookmark-fill text-info"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dept Breakdown & Job Types -->
+        <div class="row g-3 mb-4">
+            <div class="col-lg-6">
+                <div class="dashboard-card h-100">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-bar-chart-fill text-kf me-2"></i>By Department</h6>
+                    {% if departments %}
+                    {% for dept, cnt in departments.items() %}
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>{{ dept }}</span>
+                            <span class="fw-semibold">{{ cnt }}</span>
+                        </div>
+                        <div class="progress" style="height:6px">
+                            <div class="progress-bar bg-kf" style="width: {{ (cnt / count * 100) if count > 0 else 0 }}%"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-muted small">No data yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="dashboard-card h-100">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-pie-chart-fill text-kf me-2"></i>By Job Type</h6>
+                    {% if job_types %}
+                    {% for jt, cnt in job_types.items() %}
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>{{ jt if jt else 'Not specified' }}</span>
+                            <span class="fw-semibold">{{ cnt }}</span>
+                        </div>
+                        <div class="progress" style="height:6px">
+                            <div class="progress-bar bg-success" style="width: {{ (cnt / count * 100) if count > 0 else 0 }}%"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-muted small">No data yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Registrations Table -->
+        <div class="dashboard-card">
+            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                <h6 class="fw-bold mb-0">
+                    <i class="bi bi-table text-kf me-2"></i>All Registrations
+                    <span class="badge bg-kf ms-2">{{ count }}</span>
+                </h6>
+                <div class="input-group" style="max-width:250px">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control form-control-sm" id="tableSearch" 
+                           placeholder="Search by name, email...">
+                </div>
+            </div>
+            
+            {% if registrations %}
+            <div class="table-responsive">
+                <table class="table table-hover table-sm align-middle" id="regTable">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Timestamp</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Degree</th>
+                            <th>Department</th>
+                            <th>Grad Year</th>
+                            <th>GPA</th>
+                            <th>Job Type</th>
+                            <th>Skills</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reg in registrations %}
+                        <tr>
+                            <td class="text-muted small">{{ loop.index }}</td>
+                            <td class="small text-muted text-nowrap">{{ reg.get('Timestamp','') }}</td>
+                            <td class="fw-semibold text-nowrap">{{ reg.get('Full Name','') }}</td>
+                            <td class="small">{{ reg.get('Email','') }}</td>
+                            <td class="small text-nowrap">{{ reg.get('Phone','') }}</td>
+                            <td><span class="badge bg-kf-light text-kf">{{ reg.get('Degree','') }}</span></td>
+                            <td>{{ reg.get('Department','') }}</td>
+                            <td>{{ reg.get('Graduation Year','') }}</td>
+                            <td>{{ reg.get('GPA/CGPA','') }}</td>
+                            <td>
+                                {% set jt = reg.get('Job Type','') %}
+                                <span class="badge {{ 'bg-success' if jt == 'Full-time' else 'bg-info' if jt == 'Internship' else 'bg-secondary' }}">
+                                    {{ jt if jt else 'N/A' }}
+                                </span>
+                            </td>
+                            <td class="small text-truncate" style="max-width:150px" title="{{ reg.get('Skills','') }}">
+                                {{ reg.get('Skills','') }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-5 text-muted">
+                <i class="bi bi-inbox fs-2 mb-3 d-block"></i>
+                <p>No registrations yet. Share the registration link to get started.</p>
+                <a href="{{ url_for('forms.register') }}" class="btn btn-kf btn-sm">
+                    <i class="bi bi-link-45deg me-1"></i>View Registration Page
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Table Search
+document.getElementById('tableSearch').addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('#regTable tbody tr').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+});
+
+function refreshData() {
+    window.location.reload();
+}
+</script>
+{% endblock %}

@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}KFUEIT Job Fair 2026 – Connect, Grow, Succeed{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-bg-pattern"></div>
+    <div class="container position-relative">
+        <div class="row align-items-center min-vh-hero">
+            <div class="col-lg-6">
+                <div class="hero-badge mb-3">
+                    <i class="bi bi-star-fill me-1"></i>
+                    Official Career Event 2026
+                </div>
+                <h1 class="hero-title">
+                    Launch Your<br>
+                    <span class="text-kf-gold">Career</span> at<br>
+                    KFUEIT
+                </h1>
+                <p class="hero-desc mt-4 mb-5">
+                    Join Pakistan's most exciting campus job fair. Meet 50+ top companies, 
+                    attend workshops, and land your dream job — all in one day.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{{ url_for('forms.register') }}" class="btn btn-kf btn-lg px-4">
+                        <i class="bi bi-person-plus me-2"></i>Register Free
+                    </a>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-kf-outline btn-lg px-4">
+                        <i class="bi bi-grid me-2"></i>View Dashboard
+                    </a>
+                </div>
+                <div class="hero-stats mt-5 d-flex gap-4">
+                    <div class="stat-item">
+                        <span class="stat-num">50+</span>
+                        <span class="stat-label">Companies</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-num">1000+</span>
+                        <span class="stat-label">Students</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-num">200+</span>
+                        <span class="stat-label">Jobs</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="hero-graphic">
+                    <div class="hero-card-1 float-card">
+                        <i class="bi bi-building text-kf-gold fs-3"></i>
+                        <p class="mb-0 mt-2 fw-semibold">50+ Top Companies</p>
+                    </div>
+                    <div class="hero-card-2 float-card">
+                        <i class="bi bi-patch-check-fill text-success fs-3"></i>
+                        <p class="mb-0 mt-2 fw-semibold">Free Entry</p>
+                    </div>
+                    <div class="hero-card-3 float-card">
+                        <i class="bi bi-calendar-event text-kf fs-3"></i>
+                        <p class="mb-0 mt-2 fw-semibold">March 15, 2026</p>
+                    </div>
+                    <div class="hero-bg-circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Event Details Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3 col-6">
+                <div class="info-card text-center">
+                    <div class="info-icon"><i class="bi bi-calendar3"></i></div>
+                    <h5 class="mt-3 mb-1">Date</h5>
+                    <p class="text-muted mb-0">March 15, 2026</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="info-card text-center">
+                    <div class="info-icon"><i class="bi bi-clock"></i></div>
+                    <h5 class="mt-3 mb-1">Time</h5>
+                    <p class="text-muted mb-0">9:00 AM – 5:00 PM</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="info-card text-center">
+                    <div class="info-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                    <h5 class="mt-3 mb-1">Venue</h5>
+                    <p class="text-muted mb-0">KFUEIT Main Campus</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="info-card text-center">
+                    <div class="info-icon"><i class="bi bi-ticket-perforated"></i></div>
+                    <h5 class="mt-3 mb-1">Entry</h5>
+                    <p class="text-muted mb-0">Free Registration</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-6">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-badge">Why Attend?</span>
+            <h2 class="section-title mt-2">Everything You Need to<br><span class="text-kf">Get Hired</span></h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100">
+                    <div class="feature-icon bg-kf-light">
+                        <i class="bi bi-people-fill text-kf"></i>
+                    </div>
+                    <h5 class="mt-3">Meet Recruiters Directly</h5>
+                    <p class="text-muted">Face-to-face interactions with HR professionals from Pakistan's top companies across various industries.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100">
+                    <div class="feature-icon bg-warning-subtle">
+                        <i class="bi bi-lightbulb-fill text-warning"></i>
+                    </div>
+                    <h5 class="mt-3">CV Workshops</h5>
+                    <p class="text-muted">Get your CV reviewed by industry experts and learn how to present yourself professionally.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100">
+                    <div class="feature-icon bg-success-subtle">
+                        <i class="bi bi-briefcase-fill text-success"></i>
+                    </div>
+                    <h5 class="mt-3">On-Spot Interviews</h5>
+                    <p class="text-muted">Attend on-the-spot interviews and get shortlisted by top employers right at the event.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100">
+                    <div class="feature-icon bg-info-subtle">
+                        <i class="bi bi-graph-up-arrow text-info"></i>
+                    </div>
+                    <h5 class="mt-3">Career Guidance</h5>
+                    <p class="text-muted">Career counseling sessions to help you navigate your professional journey effectively.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100">
+                    <div class="feature-icon bg-danger-subtle">
+                        <i class="bi bi-award-fill text-danger"></i>
+                    </div>
+                    <h5 class="mt-3">Internship Offers</h5>
+                    <p class="text-muted">Hundreds of internship and fresh graduate positions available across all engineering disciplines.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card h-100">
+                    <div class="feature-icon bg-purple-subtle">
+                        <i class="bi bi-diagram-3-fill" style="color:#7c3aed"></i>
+                    </div>
+                    <h5 class="mt-3">Networking</h5>
+                    <p class="text-muted">Build your professional network with peers, alumni, and industry leaders all in one place.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Companies Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-badge">Participating Companies</span>
+            <h2 class="section-title mt-2">Top Employers <span class="text-kf">Hiring Now</span></h2>
+        </div>
+        <div class="row g-3 justify-content-center">
+            {% set companies = [
+                ('PTCL','bi-telephone-fill','#0066cc'),
+                ('Engro','bi-lightning-charge-fill','#e63946'),
+                ('NESTLE','bi-cup-hot-fill','#2d6a4f'),
+                ('HBL','bi-bank','#c9184a'),
+                ('Systems Ltd','bi-code-slash','#7c3aed'),
+                ('Fauji','bi-shield-fill','#1b4332'),
+                ('Telenor','bi-wifi','#e67e22'),
+                ('Jazz','bi-broadcast','#d62828'),
+                ('Unilever','bi-box-seam-fill','#0077b6'),
+                ('NTC','bi-cpu-fill','#023e8a')
+            ] %}
+            {% for name, icon, color in companies %}
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="company-badge text-center py-3 px-2 rounded-3 h-100">
+                    <i class="bi {{ icon }} fs-2 mb-2" style="color:{{ color }}"></i>
+                    <p class="mb-0 small fw-semibold">{{ name }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <p class="text-center text-muted mt-4">+ 40 more companies participating</p>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-6">
+    <div class="container text-center">
+        <h2 class="text-white display-6 fw-bold">Ready to Start Your Career Journey?</h2>
+        <p class="text-white-50 mt-3 mb-4 lead">Register now — it's completely free. Limited spots available.</p>
+        <a href="{{ url_for('forms.register') }}" class="btn btn-light btn-lg px-5 py-3 fw-semibold">
+            <i class="bi bi-person-plus me-2"></i>Register for Free
+        </a>
+    </div>
+</section>
+
+{% endblock %}

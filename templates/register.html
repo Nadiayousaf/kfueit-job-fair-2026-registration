@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}Register – KFUEIT Job Fair 2026{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Page Header -->
+                <div class="text-center mb-5">
+                    <span class="section-badge">Student Registration</span>
+                    <h2 class="section-title mt-2">Register for <span class="text-kf">Job Fair 2026</span></h2>
+                    <p class="text-muted">Fill in your details below. Registration is free and takes less than 2 minutes.</p>
+                </div>
+
+                <!-- Registration Form -->
+                <div class="form-card">
+                    <form id="registrationForm" method="POST" action="{{ url_for('forms.register') }}" novalidate>
+                        
+                        <!-- Section 1: Personal Info -->
+                        <div class="form-section-title">
+                            <i class="bi bi-person-circle me-2 text-kf"></i>Personal Information
+                        </div>
+                        
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="full_name" 
+                                       value="{{ form_data.get('full_name','') }}" 
+                                       placeholder="Muhammad Ali Khan" required>
+                                <div class="invalid-feedback">Full name is required.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" name="email" 
+                                       value="{{ form_data.get('email','') }}" 
+                                       placeholder="student@kfueit.edu.pk" required>
+                                <div class="invalid-feedback">Valid email is required.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" name="phone" 
+                                       value="{{ form_data.get('phone','') }}" 
+                                       placeholder="03XX-XXXXXXX" required>
+                                <div class="invalid-feedback">Phone number is required.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">CNIC / B-Form</label>
+                                <input type="text" class="form-control" name="cnic" 
+                                       value="{{ form_data.get('cnic','') }}" 
+                                       placeholder="XXXXX-XXXXXXX-X">
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Academic Info -->
+                        <div class="form-section-title">
+                            <i class="bi bi-mortarboard me-2 text-kf"></i>Academic Information
+                        </div>
+                        
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Degree Program <span class="text-danger">*</span></label>
+                                <select class="form-select" name="degree" required>
+                                    <option value="" disabled {% if not form_data.get('degree') %}selected{% endif %}>Select Degree</option>
+                                    <option value="BS" {% if form_data.get('degree')=='BS' %}selected{% endif %}>BS (Bachelor of Science)</option>
+                                    <option value="BE" {% if form_data.get('degree')=='BE' %}selected{% endif %}>BE (Bachelor of Engineering)</option>
+                                    <option value="MS" {% if form_data.get('degree')=='MS' %}selected{% endif %}>MS (Master of Science)</option>
+                                    <option value="ME" {% if form_data.get('degree')=='ME' %}selected{% endif %}>ME (Master of Engineering)</option>
+                                    <option value="PhD" {% if form_data.get('degree')=='PhD' %}selected{% endif %}>PhD</option>
+                                </select>
+                                <div class="invalid-feedback">Please select your degree.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Department <span class="text-danger">*</span></label>
+                                <select class="form-select" name="department" required>
+                                    <option value="" disabled {% if not form_data.get('department') %}selected{% endif %}>Select Department</option>
+                                    <option value="CS" {% if form_data.get('department')=='CS' %}selected{% endif %}>Computer Science</option>
+                                    <option value="IT" {% if form_data.get('department')=='IT' %}selected{% endif %}>Information Technology</option>
+                                    <option value="EE" {% if form_data.get('department')=='EE' %}selected{% endif %}>Electrical Engineering</option>
+                                    <option value="ME_dept" {% if form_data.get('department')=='ME_dept' %}selected{% endif %}>Mechanical Engineering</option>
+                                    <option value="CE" {% if form_data.get('department')=='CE' %}selected{% endif %}>Civil Engineering</option>
+                                    <option value="SW" {% if form_data.get('department')=='SW' %}selected{% endif %}>Software Engineering</option>
+                                    <option value="TE" {% if form_data.get('department')=='TE' %}selected{% endif %}>Telecom Engineering</option>
+                                    <option value="Other" {% if form_data.get('department')=='Other' %}selected{% endif %}>Other</option>
+                                </select>
+                                <div class="invalid-feedback">Please select your department.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Graduation Year</label>
+                                <select class="form-select" name="graduation_year">
+                                    <option value="">Select Year</option>
+                                    {% for yr in [2024, 2025, 2026, 2027, 2028] %}
+                                    <option value="{{ yr }}" {% if form_data.get('graduation_year')|string == yr|string %}selected{% endif %}>{{ yr }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">GPA / CGPA</label>
+                                <input type="number" class="form-control" name="gpa" step="0.01" min="0" max="4"
+                                       value="{{ form_data.get('gpa','') }}" placeholder="e.g. 3.50 (out of 4.0)">
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Career Info -->
+                        <div class="form-section-title">
+                            <i class="bi bi-briefcase me-2 text-kf"></i>Career Preferences
+                        </div>
+                        
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Looking For</label>
+                                <select class="form-select" name="job_type">
+                                    <option value="">Select Type</option>
+                                    <option value="Full-time" {% if form_data.get('job_type')=='Full-time' %}selected{% endif %}>Full-time Job</option>
+                                    <option value="Internship" {% if form_data.get('job_type')=='Internship' %}selected{% endif %}>Internship</option>
+                                    <option value="Part-time" {% if form_data.get('job_type')=='Part-time' %}selected{% endif %}>Part-time</option>
+                                    <option value="Remote" {% if form_data.get('job_type')=='Remote' %}selected{% endif %}>Remote Work</option>
+                                    <option value="Any" {% if form_data.get('job_type')=='Any' %}selected{% endif %}>Open to Any</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">LinkedIn Profile</label>
+                                <input type="url" class="form-control" name="linkedin" 
+                                       value="{{ form_data.get('linkedin','') }}"
+                                       placeholder="https://linkedin.com/in/...">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Key Skills</label>
+                                <input type="text" class="form-control" name="skills"
+                                       value="{{ form_data.get('skills','') }}"
+                                       placeholder="e.g. Python, Machine Learning, AutoCAD, MATLAB">
+                                <div class="form-text">Separate skills with commas</div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">CV / Portfolio Link</label>
+                                <input type="url" class="form-control" name="cv_link"
+                                       value="{{ form_data.get('cv_link','') }}"
+                                       placeholder="Google Drive / Dropbox link to your CV">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Message / Note (Optional)</label>
+                                <textarea class="form-control" name="message" rows="3"
+                                          placeholder="Any special requirements or message for the organizers?">{{ form_data.get('message','') }}</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Terms & Submit -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                <label class="form-check-label" for="termsCheck">
+                                    I agree to the <a href="#" class="text-kf">Terms & Conditions</a> and allow KFUEIT to share my information with participating companies.
+                                </label>
+                                <div class="invalid-feedback">You must agree before submitting.</div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-kf btn-lg" id="submitBtn">
+                                <span class="btn-text">
+                                    <i class="bi bi-send-fill me-2"></i>Submit Registration
+                                </span>
+                                <span class="btn-loading d-none">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>Submitting...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Help Text -->
+                <p class="text-center text-muted small mt-4">
+                    <i class="bi bi-shield-lock me-1"></i>Your data is securely stored. 
+                    Need help? Contact <a href="mailto:jobfair@kfueit.edu.pk" class="text-kf">jobfair@kfueit.edu.pk</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/form.js') }}"></script>
+{% endblock %}

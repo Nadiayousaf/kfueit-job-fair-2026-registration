@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login – KFUEIT Job Fair 2026{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5 col-lg-4">
+                <div class="text-center mb-4">
+                    <div class="login-icon mx-auto mb-3">
+                        <i class="bi bi-shield-lock-fill text-kf fs-2"></i>
+                    </div>
+                    <h3 class="fw-bold">Admin Portal</h3>
+                    <p class="text-muted small">KFUEIT Job Fair 2026 — Staff Access Only</p>
+                </div>
+
+                <div class="form-card">
+                    <form method="POST" action="{{ url_for('auth.login') }}" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" name="username" 
+                                       placeholder="Enter username" required autocomplete="username">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" class="form-control" name="password" 
+                                       id="passwordField" placeholder="Enter password" 
+                                       required autocomplete="current-password">
+                                <button class="btn btn-outline-secondary" type="button" 
+                                        onclick="togglePassword()">
+                                    <i class="bi bi-eye" id="eyeIcon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-kf">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <p class="text-center mt-3">
+                    <a href="{{ url_for('index') }}" class="text-muted small">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Home
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function togglePassword() {
+    const field = document.getElementById('passwordField');
+    const icon = document.getElementById('eyeIcon');
+    if (field.type === 'password') {
+        field.type = 'text';
+        icon.className = 'bi bi-eye-slash';
+    } else {
+        field.type = 'password';
+        icon.className = 'bi bi-eye';
+    }
+}
+</script>
+{% endblock %}
