@@ -118,7 +118,15 @@ Default credentials (change in `.env`!):
 - **Username:** `admin`
 - **Password:** `admin@KFUEIT2026`
 
----
+### ScreenShots
+## Home Page:
+<img width="1920" height="968" alt="Home Page" src="https://github.com/user-attachments/assets/f0cc9469-0834-4e88-b3ab-22d2c68f9225" />
+## Participating Companies: 
+<img width="1920" height="925" alt="participating Companies" src="https://github.com/user-attachments/assets/f75f3025-dafe-444b-9738-c90732b71f54" />
+## Admin Portal
+<img width="1920" height="904" alt="Admin Portal" src="https://github.com/user-attachments/assets/0ded2fc5-8a37-4161-8f14-8cbba4568880" />
+## Admin Dashboard
+<img width="1920" height="977" alt="Admin Dashboard" src="https://github.com/user-attachments/assets/5a68bdb1-2b2d-44bf-b4fd-e51b99a5b0e5" />
 
 ## 📁 Project Structure
 
