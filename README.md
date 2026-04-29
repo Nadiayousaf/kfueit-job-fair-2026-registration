@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # KFUEIT Job Fair 2026 – Web App
 
 A full-stack Flask web application for managing student registrations for the KFUEIT Job Fair 2026. Uses Google Sheets as the database.
@@ -156,3 +157,7 @@ KFUEIT-Job-Fair-2026/
 - Keep `credentials.json` **out of version control** (add to `.gitignore`)
 - Change `SECRET_KEY` and admin credentials in production
 - The app creates the Registrations sheet automatically on first submission
+=======
+# kfueit-job-fair-2026-registration
+KFUEIT Job Fair Registration System built with Python and SQLite for managing student registrations and admin job fair operations.
+>>>>>>> c49e3b93520f22ad576c787240628acb2f644e4e
